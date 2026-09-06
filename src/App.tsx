@@ -10,7 +10,6 @@ import { ProgrammerMode } from './components/ProgrammerMode';
 import { UnitConverterMode } from './components/UnitConverterMode';
 import { FinanceMode } from './components/FinanceMode';
 import { SmartSolverMode } from './components/SmartSolverMode';
-import { AdMobBanner } from './components/AdMobBanner';
 
 export default function App() {
   // Theme state with local persistence
@@ -153,9 +152,6 @@ export default function App() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* AdMob Banner Slot (com.asastudio) */}
-        <AdMobBanner theme={activeTheme} />
 
         {/* Theme Selector Modal */}
         <ThemeSelector
