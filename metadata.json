@@ -1,0 +1,6 @@
+{
+  "name": "Smart Calculator Futuristik Android",
+  "description": "Aplikasi Smart Calculator Android modern dan bersih dengan 10 tema visual (5 Soft & Clean + 5 Cyberpunk), kalkulator ilmiah, programmer biner/hex, konverter satuan, kalkulator finansial, grafik fungsi, dan suara FX interaktif.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

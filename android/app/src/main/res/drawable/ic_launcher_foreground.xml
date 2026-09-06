@@ -1,0 +1,63 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background squircle -->
+    <path
+        android:pathData="M18,10 L90,10 A8,8 0 0,1 98,18 L98,90 A8,8 0 0,1 90,98 L18,98 A8,8 0 0,1 10,90 L10,18 A8,8 0 0,1 18,10 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="10"
+                android:startY="10"
+                android:endX="98"
+                android:endY="98"
+                android:type="linear">
+                <item android:color="#FF082F49" android:offset="0.0" />
+                <item android:color="#FF0C4A6E" android:offset="0.5" />
+                <item android:color="#FF0369A1" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Squircle Border -->
+    <path
+        android:pathData="M18,10 L90,10 A8,8 0 0,1 98,18 L98,90 A8,8 0 0,1 90,98 L18,98 A8,8 0 0,1 10,90 L10,18 A8,8 0 0,1 18,10 Z"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FF22D3EE" />
+
+    <!-- Inner Keypad Box -->
+    <path
+        android:pathData="M28,24 L80,24 A6,6 0 0,1 86,30 L86,78 A6,6 0 0,1 80,84 L28,84 A6,6 0 0,1 22,78 L22,30 A6,6 0 0,1 28,24 Z"
+        android:fillColor="#880F172A"
+        android:strokeWidth="1.2"
+        android:strokeColor="#FF38BDF8" />
+
+    <!-- Dividers -->
+    <path
+        android:pathData="M43,24 L43,84 M65,24 L65,84 M22,44 L86,44 M22,64 L86,64"
+        android:strokeWidth="1"
+        android:strokeColor="#5538BDF8" />
+
+    <!-- Glowing Center Quantum Core -->
+    <path
+        android:pathData="M54,54 m-11,0 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:gradientRadius="11"
+                android:centerX="54"
+                android:centerY="54"
+                android:type="radial">
+                <item android:color="#FF67E8F9" android:offset="0.0" />
+                <item android:color="#FF06B6D4" android:offset="0.7" />
+                <item android:color="#FF0891B2" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M54,54 m-11,0 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FFE0F2FE" />
+</vector>

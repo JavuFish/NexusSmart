@@ -1,0 +1,111 @@
+name: Build Android APK & AAB
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Tipe Build (Release / Debug / Both)'
+        required: true
+        default: 'Both'
+        type: choice
+        options:
+          - 'Both'
+          - 'Release'
+          - 'Debug'
+
+jobs:
+  build:
+    name: Build APK & AAB
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Web Dependencies
+        run: npm ci || npm install
+
+      - name: ⚡ Compile Web Assets
+        run: npm run build
+
+      - name: 📂 Sync Assets to Android Assets Folder
+        run: |
+          mkdir -p android/app/src/main/assets
+          rm -rf android/app/src/main/assets/*
+          cp -r dist/* android/app/src/main/assets/
+          echo "Web assets successfully copied to Android assets folder:"
+          ls -lh android/app/src/main/assets
+
+      - name: ☕ Setup Java 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 📱 Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 🐘 Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.4'
+
+      - name: 🔧 Generate Gradle Wrapper (if needed)
+        working-directory: android
+        run: |
+          gradle wrapper --gradle-version 8.4 --distribution-type bin
+          chmod +x gradlew
+
+      - name: 🚀 Build Android APK (Release & Debug)
+        working-directory: android
+        run: |
+          ./gradlew assembleRelease assembleDebug --stacktrace
+
+      - name: 📦 Build Android App Bundle (.AAB for Google Play Store)
+        working-directory: android
+        run: |
+          ./gradlew bundleRelease --stacktrace
+
+      - name: 🔍 List Output Files
+        run: |
+          echo "=== APK Files ==="
+          find android/app/build/outputs/apk -type f \( -name "*.apk" \) -exec ls -lh {} +
+          echo "=== AAB Files ==="
+          find android/app/build/outputs/bundle -type f \( -name "*.aab" \) -exec ls -lh {} +
+
+      - name: 📤 Upload APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nexus-Smart-Calculator-APK
+          path: |
+            android/app/build/outputs/apk/release/*.apk
+            android/app/build/outputs/apk/debug/*.apk
+          retention-days: 30
+
+      - name: 📤 Upload AAB (Google Play Bundle) Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nexus-Smart-Calculator-AAB
+          path: android/app/build/outputs/bundle/release/*.aab
+          retention-days: 30
+
+      - name: 🏷️ Create GitHub Release (Optional on Tag push)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            android/app/build/outputs/apk/release/*.apk
+            android/app/build/outputs/bundle/release/*.aab
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

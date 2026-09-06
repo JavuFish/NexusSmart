@@ -1,0 +1,14 @@
+<resources>
+    <style name="Theme.SmartCalculator" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#06b6d4</item>
+        <item name="colorPrimaryVariant">#0891b2</item>
+        <item name="colorOnPrimary">#ffffff</item>
+        <item name="android:statusBarColor">#090d16</item>
+        <item name="android:navigationBarColor">#090d16</item>
+        <item name="android:windowBackground">#090d16</item>
+    </style>
+    <style name="Theme.SmartCalculator.NoActionBar" parent="Theme.SmartCalculator">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
