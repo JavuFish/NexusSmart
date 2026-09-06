@@ -33,7 +33,7 @@ jobs:
           node-version: 22
 
       - name: 📦 Install Web Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: ⚡ Compile Web Assets
         run: npm run build
